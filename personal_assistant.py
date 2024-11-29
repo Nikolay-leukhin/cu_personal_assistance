@@ -36,7 +36,7 @@ def main():
                         title = input(lx.enter_note_title)
                         content = input(lx.enter_note_content)
                         timestamp = input(lx.enter_note_timestamp)
-                        note_manager.add_note(Note(title, content, timestamp))
+                        note_manager.add_note(Note(title=title, content=content, timestamp=timestamp))
                         print(lx.add_note_success)
                     case 2:
                         note_id = int(input(lx.enter_note_id))
@@ -52,6 +52,13 @@ def main():
                         notes = note_manager.get_notes()
                         for note in notes:
                             print(note)
+                    case 5:
+                        data = note_manager.import_from_csv(path_to_notes.replace('.json', '.csv'))
+                        for item in data:
+                            print(item)
+                    case 6:
+                        cur_data = note_manager.get_notes()
+                        note_manager.export_to_csv(cur_data, path_to_notes.replace('.json', '.csv'))
 
             case 2:
                 task_action = int(input(lx.choose_task_action))
@@ -83,6 +90,13 @@ def main():
                         task_id = int(input(lx.enter_task_id_delete))
                         task_manager.delete_task(task_id)
                         print(lx.delete_task_success)
+                    case 6:
+                        data = task_manager.import_from_csv(path_to_tasks.replace('.json', '.csv'))
+                        for item in data:
+                            print(item)
+                    case 7:
+                        cur_data = task_manager.get_tasks()
+                        task_manager.export_to_csv(cur_data, path_to_tasks.replace('.json', '.csv'))
             case 3:
                 contact_action = int(input(lx.choose_contact_action))
                 match contact_action:
@@ -109,6 +123,13 @@ def main():
                     case 5:
                         phone = input(lx.enter_contact_phone)
                         print(contact_manager.find_by_phone(phone))
+                    case 6:
+                        data = contact_manager.import_from_csv(path_to_contacts.replace('.json', '.csv'))
+                        for item in data:
+                            print(item)
+                    case 7:
+                        cur_data = contact_manager.load_data()
+                        contact_manager.export_to_csv(cur_data, path_to_contacts.replace('.json', '.csv'))
             case 4:
                 finance_action = int(input(lx.choose_record_action))
                 match finance_action:
@@ -132,6 +153,13 @@ def main():
                         start = input(lx.enter_report_start_date)
                         end = input(lx.enter_report_end_date)
                         records_manager.form_report(start, end)
+                    case 4:
+                        data = records_manager.import_from_csv(path_to_records.replace('.json', '.csv'))
+                        for item in data:
+                            print(item)
+                    case 5:
+                        cur_data = records_manager.load_data()
+                        records_manager.export_to_csv(cur_data, path_to_records.replace('.json', '.csv'))
             case 5:
                 operation = int(input(lx.calc_enter_operation))
                 if operation not in [1, 2, 3, 4]:

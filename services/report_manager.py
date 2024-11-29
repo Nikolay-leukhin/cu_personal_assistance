@@ -62,6 +62,12 @@ class RecordManager:
 
         return data
 
+    def import_from_csv(self, abs_path):
+        return [FinanceRecord.from_json(item) for item in self.file.import_from_csv(abs_path)]
+
+    def export_to_csv(self, data, abs_path):
+        return self.file.export_to_csv(data, abs_path)
+
     def save_data(self):
         raw_tasks = [item.to_json() for item in self.__record_list]
         self.file.save_to_json(raw_tasks, self.__file_path)

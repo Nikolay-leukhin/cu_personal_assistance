@@ -21,6 +21,7 @@ class FileManager:
 
     @staticmethod
     def export_to_csv(data, filename: str):
+        data = [item.to_json() for item in data]
         try:
             with open(filename, mode='w', newline='', encoding='utf-8') as file:
                 writer = csv.writer(file)

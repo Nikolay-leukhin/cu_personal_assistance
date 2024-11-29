@@ -72,7 +72,7 @@ class TaskManager:
         self.file.save_to_json(raw_tasks, self.__file_path)
 
     def import_from_csv(self, abs_path):
-        return self.file.import_from_csv(abs_path)
+        return [Task.from_json(item) for item in self.file.import_from_csv(abs_path)]
 
     def export_to_csv(self, data, abs_path):
         return self.file.export_to_csv(data, abs_path)
