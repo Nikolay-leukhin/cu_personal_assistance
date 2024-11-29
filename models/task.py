@@ -26,6 +26,6 @@ class Task:
 
     @classmethod
     def from_json(cls, json_str):
-        return Task(**json_str )
+        return Task(**json_str)
 
 

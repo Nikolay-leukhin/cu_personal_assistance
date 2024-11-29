@@ -1,17 +1,9 @@
 from models import Task
 from .file_manager import FileManager
-from enum import Enum
-
-
-class TaskFilterEnum(Enum):
-    status = 'status'
-    due = 'due'
-    priority = 'priority'
-    none = ''
+from copy import deepcopy
 
 
 class TaskManager:
-
     def __init__(self, file_path: str):
         self.file = FileManager()
         self.__file_path = file_path
@@ -21,15 +13,31 @@ class TaskManager:
         new_id = max([item.id for item in self.__task_list]) + 1 if self.__task_list.__len__() != 0 else 0
         task.id = new_id
         self.__task_list.append(task)
-        raw_tasks = [item.to_json() for item in self.__task_list]
-
         self.save_data()
 
-    def get_tasks(self):
-        for item in self.__task_list:
+    def get_tasks(self, priority: str = None, done: bool = None , due: str = None):
+        filtered = deepcopy(self.__task_list)
+        if priority is not None:
+            filtered = [
+                item for item in filtered
+                if item.priority == priority
+            ]
+        if done is not None:
+            filtered = [
+                item for item in filtered
+                if item.done == done
+            ]
+
+        if due is not None:
+            filtered = [
+                item for item in filtered
+                if item.due_date == due
+            ]
+
+        for item in filtered:
             print(item)
 
-        return self.__task_list
+        return filtered
 
     def mark_as_completed(self, task_id):
         task = self.find_task(task_id)
@@ -60,13 +68,14 @@ class TaskManager:
         return task
 
     def save_data(self):
-        self.file.save_to_json(self.__task_list, self.__file_path)
+        raw_tasks = [item.to_json() for item in self.__task_list]
+        self.file.save_to_json(raw_tasks, self.__file_path)
 
     def import_from_csv(self, abs_path):
         return self.file.import_from_csv(abs_path)
 
-    def export_to_csv(self, abs_path):
-        return self.file.export_to_csv(abs_path)
+    def export_to_csv(self, data, abs_path):
+        return self.file.export_to_csv(data, abs_path)
 
     def load_data(self):
         raw_data = self.file.load_from_json(self.__file_path)
