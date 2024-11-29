@@ -30,9 +30,7 @@ class RecordManager:
                 if item.date == filter_by_date
             ]
 
-        for note in filtered:
-            print(note)
-        return self.__record_list
+        return filtered
 
     def form_report(self, start, end):
         filtered_by_date = [
@@ -71,3 +69,4 @@ class RecordManager:
     def load_data(self):
         raw_data = self.file.load_from_json(self.__file_path)
         return [FinanceRecord.from_json(json_item) for json_item in raw_data]
+

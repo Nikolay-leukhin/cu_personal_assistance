@@ -15,8 +15,6 @@ class NoteManager:
         self.save_data()
 
     def get_notes(self):
-        for note in self.__note_list:
-            print(note)
         return self.__note_list
 
     def get_note_details(self, note_id):

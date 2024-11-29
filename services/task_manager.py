@@ -15,7 +15,7 @@ class TaskManager:
         self.__task_list.append(task)
         self.save_data()
 
-    def get_tasks(self, priority: str = None, done: bool = None , due: str = None):
+    def get_tasks(self, priority: str = None, done: bool = None, due: str = None):
         filtered = deepcopy(self.__task_list)
         if priority is not None:
             filtered = [
