@@ -39,8 +39,11 @@ class ContactManager:
         contact.phone = phone if phone is not None else contact.phone
         contact.email = email if email is not None else contact.email
 
+        self.save_data()
+
     def delete_contact(self, contact_id):
         self.__contacts_list = list(filter(lambda cn: cn.id != contact_id, self.__contacts_list))
+        self.save_data()
 
     def save_data(self):
         raw_tasks = [item.to_json() for item in self.__contacts_list]
