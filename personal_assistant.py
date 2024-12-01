@@ -4,13 +4,6 @@ from models import Task, Note, Contact, FinanceRecord
 from calculator import Calculator
 import os
 
-tasks = [
-    Task(title="Buy groceries", description="Milk, Bread, Eggs", priority="High", due_date="01-10-2023 14:30:00", done=False),
-    Task(title="Finish project report", description="Complete the final report for the project", priority="Medium", due_date="02-10-2023 09:00:00", done=False),
-    Task(title="Call the doctor", description="Schedule an appointment for a check-up", priority="Low", due_date="03-10-2023 11:15:00", done=False),
-    Task(title="Attend meeting", description="Weekly team meeting", priority="High", due_date="04-10-2023 10:00:00", done=False),
-]
-
 
 def main():
     path_to_tasks = os.getcwd() + '/assets/tasks.json'
