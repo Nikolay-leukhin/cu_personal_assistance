@@ -1,6 +1,7 @@
 from models import FinanceRecord
 from copy import deepcopy
 from .file_manager import FileManager
+from datetime import datetime
 
 
 class RecordManager:
@@ -33,9 +34,12 @@ class RecordManager:
         return filtered
 
     def form_report(self, start, end):
+        start_date = datetime.strptime(start, '%d-%m-%Y')
+        end_date = datetime.strptime(end, '%d-%m-%Y')
+
         filtered_by_date = [
             item for item in self.__record_list
-            if start <= item.date <= end
+            if start_date <= datetime.strptime(item.date, '%d-%m-%Y') <= end_date
         ]
 
         return filtered_by_date
